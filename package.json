@@ -1,0 +1,33 @@
+{
+  "name": "jonctionfs-node",
+  "version": "0.1.0",
+  "description": "Node version for JunctionFS",
+  "type": "module",
+  "engines": {
+    "node": ">= 16.13 <17"
+  },
+  "devDependencies": {
+    "@types/node": "~16.11",
+    "ts-node-dev": "^1.1.8",
+    "tsconfig-paths": "^3.14.1",
+    "tsutils": "~3.21",
+    "typescript": "~4.6"
+  },
+  "scripts": {
+    "start": "npm run build && nodemon build/main.js",
+    "build": "tsc -p tsconfig.json",
+    "build:watch": "tsc -w -p tsconfig.json",
+    "show-config": "ts-node-esm --showConfig"
+  },
+  "author": "Jonathan Caron-Roberge",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@types/express": "^4.17.13",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.1",
+    "node-fetch": "^3.2.4",
+    "nodemon": "^2.0.16",
+    "ts-node": "^10.7.0",
+    "tslib": "~2.3.1"
+  }
+}
