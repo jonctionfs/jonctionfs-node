@@ -30,7 +30,8 @@ export const uploadFile = async (connection: FileSystemAPI, body: any) => {
     return {
       status: 201,
       body: {
-        contentUrl: obj.contentUrl
+        contentUrl: obj.contentUrl,
+        method: obj.method
       }
     }
   } catch (e) {
