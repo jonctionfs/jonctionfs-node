@@ -1,6 +1,6 @@
 import { Client } from "./s3.client.js"
 import { FileSystemAPI } from '../../api/filesystem/api.d'
-import { Obj, PresignedUrl } from '../../interfaces.js'
+import { Obj, ObjectId, PresignedUrl } from '../../interfaces.js'
 import { Path } from './path.js'
 import { Provider } from '../../provider.js'
 
@@ -39,11 +39,13 @@ export const newConnection = async (
     async getContainerContent(path): Promise<Obj[]> {
       return await repository.getContainerContent(new Path(path.toString()), minio)
     },
-    async createContainer(name, parents): Promise<void> {
+    async createContainer(name, parents): Promise<ObjectId> {
       const path = new Path(parents[0].toString() + name)
       try {
         await repository.createContainer(path, minio)
+        return new ObjectId(path)
       } catch (e) {
+        throw e
         console.error(e)
       }
     },

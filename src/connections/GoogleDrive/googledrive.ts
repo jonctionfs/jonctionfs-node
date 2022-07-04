@@ -2,7 +2,7 @@ import { OauthClient, OauthTokens, OauthResponse } from '../../oauth.js'
 import { Provider } from '../../provider.js'
 
 import { Metadata, FileSystemAPI} from '../../api/filesystem/api.d'
-import { Obj } from '../../interfaces.js'
+import { Obj, ObjectId } from '../../interfaces.js'
 
 interface GoogleDriveFile {
   kind: string
@@ -101,14 +101,14 @@ export const createConnection = async (provider: Provider, userId: string) => {
         }
       }) || []
     },
-    async createContainer(name, parents): Promise<void> {
+    async createContainer(name, parents): Promise<ObjectId> {
       const fileMetadata = {
         name: name,
         mimeType: 'application/vnd.google-apps.folder',
         parents: parents || ["root"]
       };
 
-      await client.fetch('https://www.googleapis.com/drive/v3/files', {
+      const res = await client.fetch('https://www.googleapis.com/drive/v3/files', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -116,6 +116,8 @@ export const createConnection = async (provider: Provider, userId: string) => {
         },
         body: JSON.stringify(fileMetadata)
       })
+
+      return new ObjectId(res.body.id)
     },
     async destroyContainer(path): Promise<void> {
       await this.destroy(path)

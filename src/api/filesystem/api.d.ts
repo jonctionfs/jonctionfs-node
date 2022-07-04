@@ -27,7 +27,7 @@ export interface FileSystemAPI {
   move: (oldParentId: ObjectId, newParentId: ObjectId, objectId: ObjectId) => Promise<void>
   rename: (objectId: ObjectId, newName: string) => Promise<void>
   getContainerContent: (objectId: ObjectId) => Promise<Obj[]>
-  createContainer: (name: string, parents: ObjectId[]) => Promise<void>
+  createContainer: (name: string, parents: ObjectId[]) => Promise<ObjectId>
   destroyContainer: (objectId: ObjectId) => Promise<void>
   getMetadata: (objectId: ObjectId) => Promise<Obj>
 }
@@ -39,6 +39,6 @@ export interface FileSystemAction {
   readonly getMetadataFile: (connection: FileSystemAPI, body: any) => Promise<Response<Metadata>>
   readonly moveFile: (connection: FileSystemAPI, body: any) => Promise<Response<void>>
   readonly getFolder: (connection: FileSystemAPI, body: any) => Promise<Response<Child[]>>
-  readonly createFolder: (connection: FileSystemAPI, body: any) => Promise<Response<void>>
+  readonly createFolder: (connection: FileSystemAPI, body: any) => Promise<Response<ObjectId>>
   readonly destroyFolder: (connection: FileSystemAPI, body: any) => Promise<Response<void>>
 }
