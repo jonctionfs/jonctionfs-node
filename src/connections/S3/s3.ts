@@ -43,10 +43,10 @@ export const newConnection = async (
       const path = new Path(parents[0].toString() + name)
       try {
         await repository.createContainer(path, minio)
-        return new ObjectId(path)
+        return new ObjectId(path.path)
       } catch (e) {
-        throw e
         console.error(e)
+        throw e
       }
     },
     async destroyContainer(path): Promise<void> {
